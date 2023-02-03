@@ -6,11 +6,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 
 import com.sierra.testbase.BrowserLaunch;
 import io.cucumber.java.en.Given;
@@ -60,7 +64,7 @@ public class OutLook_Login_stepDefini extends BrowserLaunch{
 	}
 	@When("Clicks on Outlook")
 	public void clicks_on_outlook() throws InterruptedException {
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(40));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("O365_AppTile_Mail"))).click();
 	}
 
@@ -121,10 +125,56 @@ public class OutLook_Login_stepDefini extends BrowserLaunch{
 		WebElement elesendKeys = driver.findElement(By.tagName("h1"));
 		elesendKeys.getText();
 		System.out.println(elesendKeys.getText());		
-		
-		//driver.findElement(By.xpath("//ion-col[@ng-reflect-size='8']//button[1]")).click();
-		driver.findElement(By.cssSelector("ion-row#submit_btns>ion-col>button")).click();
-		
+				
+		//driver.findElement(By.cssSelector("ion-row#submit_btns>ion-col>button")).click();		
 
+		//to perform Scroll on application using Selenium
+		//js.executeScript("window.scrollBy(0,350)", "");		
+		
 	}
+	
+	
+	@Then("Click on the Update Package Delivery Details")
+	public void click_on_the_update_package_delivery_details() throws InterruptedException {
+		
+	//Locating element by link text and store in variable "Element"    
+	WebElement Element = driver.findElement(By.xpath("//button[@title='Update the shipping details for current/past shipments']"));
+
+	Element.isDisplayed();
+				
+	// Scrolling down the page till the element is found		
+	js.executeScript("arguments[0].scrollIntoView();", Element);
+		        
+	// Click on the button 
+	js.executeScript("arguments[0].click();", Element);
+	
+	 //accepting javascript alert for popup 
+     //Alert alert = driver.switchTo().alert();
+     //alert.accept();
+	   
+    // Clicked the ok button on popup  
+    driver.findElement(By.xpath("//span[text()='Ok']")).click();    
+    
+    Thread.sleep(2000);
+    //driver.findElement(By.xpath("(//table[contains(@class,'table table-bordered')]//select)[1]")).click();
+       
+    // Select the Date:Consignment ID date 
+    Select objSelect = new Select(driver.findElement(By.xpath("(//table[contains(@class,'table table-bordered')]//select)[1]")));
+    //objSelect.selectByValue("Automation Testing");
+    objSelect.selectByIndex(1);
+    
+    Thread.sleep(1000);
+    // Select the Delivery Method field data 
+    Select objSelect_DeliveryMethod = new Select(driver.findElement(By.xpath("(//table[contains(@class,'table table-bordered')]//select)[2]")));
+    objSelect_DeliveryMethod.selectByValue("Ship (Courier)");
+    //objSelect_DeliveryMethod.selectByIndex(1);
+    
+    Thread.sleep(1000);
+    driver.findElement(By.xpath("//div[@class='input-group']//input[1]")).click();
+    //WebElement webl = driver.findElement(By.xpath("//div[@class='input-group']//input[1]"));
+    //js.executeScript("arguments[0].value='02/02/2023';", webl);
+      
+    
+	}
+	
 }

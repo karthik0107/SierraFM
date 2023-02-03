@@ -14,3 +14,5 @@ Then User should login successfully
 And Clicks on Search 
 And Search the Workorder Id "W1010201"
 And Clicks on Workorder Id
+
+Then Click on the Update Package Delivery Details
