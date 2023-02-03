@@ -17,7 +17,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-public class OutLook_Login extends BrowserLaunch{
+public class OutLook_Login_stepDefini extends BrowserLaunch{
 	JavascriptExecutor js = (JavascriptExecutor) driver;
 	
 	@Given("User navigate to outlook portal Login page")
